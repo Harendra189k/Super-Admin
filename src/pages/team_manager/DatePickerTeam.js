@@ -126,7 +126,7 @@ const DatePickerTeam = ({ props, onFilter, teamData, setRecords }) => {
           required
         />
 
-        <AddTeam />
+        <AddTeam teamData={teamData} />
       </div>
     </>
     // </div>

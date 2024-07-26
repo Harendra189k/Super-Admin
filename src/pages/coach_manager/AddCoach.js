@@ -9,6 +9,7 @@ import { LuLoader2 } from "react-icons/lu";
 
 
 const AddCoach = ({coachData}) => {
+  // console.log("coachDAta==>>", coachData)
   const {
     register,
     handleSubmit,

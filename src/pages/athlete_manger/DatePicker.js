@@ -136,7 +136,7 @@ const DatePicker = ({ props, onFilter, setRecords, athleteData }) => {
         {/* <div>
         <button className="date-reset-btn bg-gradientTo text-sm px-8 ml-3 mb-3 py-2 rounded-lg items-center border border-transparent text-white hover:bg-DarkBlue sm:w-auto w-1/2">+ Add Athlete</button>
       </div> */}
-        <AddAthlete />
+        <AddAthlete athleteData={athleteData} />
       </div>
     </>
     // </div>

@@ -7,7 +7,8 @@ import { apiPost } from "../../services/httpServices";
 import { pathObj } from "../../services/apiPath";
 import { Form } from 'react-bootstrap';
 
-const AddPlayer = () => {
+const AddPlayer = ({playerData}) => {
+  console.log("PalyerData ==>>", playerData)
   const {
     register,
     handleSubmit,
@@ -48,6 +49,7 @@ const AddPlayer = () => {
     try {
       const response = await apiPost(pathObj.ADD_PLAYER, payloadData);
       if (response.data?.status === 200) {
+        playerData()
         reset()
         handleClose();
       } else {

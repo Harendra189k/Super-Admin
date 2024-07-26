@@ -7,7 +7,7 @@ import { apiPost } from "../../services/httpServices";
 import { pathObj } from "../../services/apiPath";
 import { Form } from "react-bootstrap";
 
-const AddAthlete = () => {
+const AddAthlete = ({athleteData}) => {
   const {
     register,
     handleSubmit,
@@ -53,6 +53,7 @@ const AddAthlete = () => {
     try {
       const response = await apiPost(pathObj.ADD_ATHLETE, payloadData);
       if (response.data?.status === 200) {
+        athleteData()
         reset();
         handleClose();
       } else {
@@ -326,7 +327,7 @@ const AddAthlete = () => {
               className="date-reset-btn bg-gradientTo text-sm px-8 mr-3 py-2 rounded-lg items-center border border-transparent text-white hover:bg-DarkBlue sm:w-auto w-1/2"
               type="submit"
             >
-              Add Coach
+              Add Athlete
             </Button>
             <Button
               variant="secondary"

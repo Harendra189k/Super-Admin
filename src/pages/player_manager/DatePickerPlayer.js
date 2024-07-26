@@ -155,7 +155,7 @@ const DatePickerPlayer = ({
           required
         />
 
-        <AddPlayer />
+        <AddPlayer playerData={playerData} />
         <br/>
       </div>
     </>

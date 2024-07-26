@@ -7,7 +7,7 @@ import { apiGet, apiPost } from "../../services/httpServices";
 import { pathObj } from "../../services/apiPath";
 import { Form } from 'react-bootstrap';
 
-const AddTeam = () => {
+const AddTeam = ({teamData}) => {
   const {
     register,
     handleSubmit,
@@ -63,7 +63,7 @@ const AddTeam = () => {
     try {
       const response = await apiPost(pathObj.ADD_TEAM, payloadData);
       if (response.data?.status === 200) {
-        // teamData()
+         teamData()
         reset()
         handleClose();
       } else {
