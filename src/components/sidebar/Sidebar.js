@@ -8,12 +8,9 @@ import { RiTeamFill } from 'react-icons/ri';
 import { FaRunning, FaUserTie } from 'react-icons/fa';
 import { GiBabyfootPlayers } from 'react-icons/gi';
 import { FaFileCircleXmark } from "react-icons/fa6";
-
-
-
+import logo from '../../assets/images/logo.png'
 
 const classNames = require("classnames");
-
 
 const Sidebar = () => {
 
@@ -88,6 +85,7 @@ const Sidebar = () => {
       {/* <Link to="/dashboard">  */}
       <a className={`px-2 py-6 w-full text-center flex justify-center `}>
         {/* <img src={logoImage} className="inline max-w-[187px]" alt="" style={{ filter: "brightness(0) invert(1)" }} /> */}
+        <img className='sidebar-img' src={logo}></img>
         <h6 className="text-center font-bold text-2xl">Super Coach</h6>
         </a>
       {/* </Link> */}
