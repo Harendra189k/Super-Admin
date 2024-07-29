@@ -8,7 +8,6 @@ import { pathObj } from "../../services/apiPath";
 import { Form } from 'react-bootstrap';
 
 const AddPlayer = ({playerData}) => {
-  console.log("PalyerData ==>>", playerData)
   const {
     register,
     handleSubmit,
@@ -160,8 +159,6 @@ const AddPlayer = ({playerData}) => {
   </select>
   <p className="error-msg">{errors.category && errors.category.message}</p>
 </div>
-
-            
 
             <Button
               className="date-reset-btn bg-gradientTo text-sm px-8 mr-3 py-2 rounded-lg items-center border border-transparent text-white hover:bg-DarkBlue sm:w-auto w-1/2"

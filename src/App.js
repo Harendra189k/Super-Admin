@@ -23,10 +23,10 @@ import StaticTable from './pages/manage_static_content/StaticTable';
 function App() {
   const token = localStorage.getItem("token")
   const navigate = useNavigate()
-
+// console.log('token',token)
   useEffect(() => {
     if (token) {
-      console.log(token);
+      // console.log(token);
       navigate("/dashboard");
     } else {
       navigate("/");

@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Transition, Menu } from "@headlessui/react";
 import { Link, useNavigate } from "react-router-dom";
 import { t } from "i18next";
-import axios from "axios";
 import { apiGet } from "../services/httpServices";
 import { pathObj } from "../services/apiPath";
 

@@ -5,7 +5,6 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import ODateRangePicker from "../../components/shared/datePicker/ODateRangePicker";
 import TopNavBar from "../../components/TopNavBar";
 import PageSizeList from "../../components/PageSizeList";
-import axios from "axios";
 import {  RiEdit2Fill } from "react-icons/ri";
 import UpdateCoach from "./UpdateCoach";
 import { apiGet, apiPut } from '../../services/httpServices';
@@ -31,12 +30,11 @@ const Table = () => {
 
   const handleClose = () => setShow(false);
 
-
   const modelview =(fatchData) => {
     setModelShow(!modelShow)
     setFatchData(fatchData)
     setLoader(false)
-    console.log("sgfsdh",fatchData)
+    // console.log("sgfsdh",fatchData)
   }
 
   const deleteModelView = (fatchData) => {
@@ -54,7 +52,7 @@ const Table = () => {
     setLoader(true)
     try {
       const response = await apiGet(pathObj.COACH);
-      console.log(response, "response===");
+      // console.log(response, "response===");
   
       if (response.status === 200) {
         setCoachList(response.data);

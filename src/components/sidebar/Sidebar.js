@@ -28,7 +28,6 @@ const Sidebar = () => {
                 active: isActive,
                 })
             }
-            //   onClick={() => updatePageName(t(label))}
             >
             {icon && <span className="mr-2">{icon}</span>}
             {t(label)}
@@ -41,23 +40,6 @@ const Sidebar = () => {
       };
 
       const checkSidebarPermission = (arg) => {
-        // if (!user) {
-        //   return false;
-        // }
-        // const localPermissions = [...user?.permission];
-    
-        // if (user?.permission?.length === 0) {
-        //   return true;
-        // }
-        // const perIndex = localPermissions?.findIndex((item) => item?.manager === arg);
-        // if (perIndex < 0) {
-        //   return false;
-        // }
-        // if (localPermissions?.[perIndex]?.view) {
-        //   return true;
-        // }
-    
-        // return false;
       };
 
       const logoutUser = () => {
@@ -78,17 +60,17 @@ const Sidebar = () => {
     <>
     <div
     className={`sidebar lg:block z-10  bg-gradient-to-t from-gradpurple to-gradientFrom w-[220px] xl:w-[280px] fixed h-full overflow-y-auto`}
-    // onClick={handleSidebar}
+    
   >
     <div className="text-sideBarNavColor">
       
-      {/* <Link to="/dashboard">  */}
+      
       <a className={`px-2 py-6 w-full text-center flex justify-center `}>
-        {/* <img src={logoImage} className="inline max-w-[187px]" alt="" style={{ filter: "brightness(0) invert(1)" }} /> */}
+        
         <img className='sidebar-img' src={logo}></img>
         <h6 className="text-center font-bold text-2xl">Super Coach</h6>
         </a>
-      {/* </Link> */}
+
       <div className="profile text-center">
         <small className="block text-sm">Welcome</small>
         <strong className="block text-lg overflow-hidden text-ellipsis px-2 whitespace-nowrap "></strong>
@@ -103,7 +85,6 @@ const Sidebar = () => {
          
          {generateNavLink("/team-manager", "NAV_TEAM_MANAGER", <RiTeamFill className='team-manager-icon' />
 
-//  <img src={Dashboard} title={t("NAV_TEAM_MANAGER")} className="max-w-[18px]" alt="" />
 )}
          {generateNavLink("/player-manager", "NAV_PLAYER_MANAGER", <GiBabyfootPlayers className='team-manager-icon'/>)}
 {generateNavLink("/static-content", "NAV_STATIC_CONTENT", <FaFileCircleXmark  className='team-manager-icon'/>)}

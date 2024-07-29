@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useForm } from "react-hook-form";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { apiGet, apiPost } from "../../services/httpServices";
+import { apiPost } from "../../services/httpServices";
 import { pathObj } from "../../services/apiPath";
-import { Form } from 'react-bootstrap';
+// import { Form } from 'react-bootstrap';
 
 const AddTeam = ({teamData}) => {
   const {

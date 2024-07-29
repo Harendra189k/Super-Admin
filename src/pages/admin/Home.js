@@ -76,18 +76,16 @@ const Home = () => {
             <span className="text-base text-neutral-400 font-normal block pt-3 ">{t("TOTAL_NUMBER_OF_SPORTS")}</span>
           </h3>
           <span className="text-4xl ml-auto sm:mr-0  mt-2 sm:mt-0 absolute right-[-10px] top-[-30px] p-3 border z-10 bg-white">
-            {/* <img src={earning} className="h-8 w-8 bg-black" alt="earningImg" /> */}
             <MdOutlineSportsSoccer />
 
           </span>
         </div>
         <div className="text-center relative  sm:text-left px-3 md:px-4 xl:px-6 lg:px-5 rounded-lg py-4 md:py-8 border">
           <h3 className="text-center mb-0 text-slate-900 font-bold md:text-3xl sm:text-lg dark:text-white">
-          <OCountUp value={dashboardDetails?.addPlayer} />
+          <OCountUp value={dashboardDetails?.addTeam} />
             <span className="text-base text-neutral-400 font-normal block pt-3 ">{t("TOTAL_NUMBER_OF_TEAMS")}</span>
           </h3>
           <span className="text-4xl ml-auto sm:mr-0  mt-2 sm:mt-0 absolute right-[-10px] top-[-30px] p-3 border z-10 bg-white">
-            {/* <img src={earning} className="h-8 w-8 bg-black" alt="earningImg" /> */}
             <RiTeamFill />
 
           </span>
@@ -99,7 +97,6 @@ const Home = () => {
             <span className="text-base text-neutral-400 font-normal block pt-3 ">{t("TOTAL_NUMBER_OF_PLAYERS")}</span>
           </h3>
           <span className="text-4xl ml-auto sm:mr-0  mt-2 sm:mt-0 absolute right-[-10px] top-[-30px] p-3 border z-10 bg-white">
-            {/* <img src={earning} className="h-8 w-8 bg-black" alt="earningImg" /> */}
             <GiBabyfootPlayers />
 
           </span>

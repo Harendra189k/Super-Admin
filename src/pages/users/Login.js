@@ -1,15 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Loader from '../../layout/Loader';
-import axios from 'axios';
 import { apiPost } from '../../services/httpServices';
 import { pathObj } from '../../services/apiPath';
 
 
 const Login = () => {
-  const navigate = useNavigate();
+  // const token = localStorage.getItem("token")
+  // const location = useLocation();
+
+  // const pathname = location.pathname;
+
+  const navigate = useNavigate()
+  // useEffect(() => {
+  //   if (token&&pathname=='/') {
+  //     navigate("/dashboard");
+  //   }else{
+      
+  //   }
+  // },[])
 
   const [icon, setIcon] = useState(true);
   const { t } = useTranslation();

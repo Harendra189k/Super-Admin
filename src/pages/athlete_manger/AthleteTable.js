@@ -5,7 +5,6 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import ODateRangePicker from "../../components/shared/datePicker/ODateRangePicker";
 import TopNavBar from "../../components/TopNavBar";
 import PageSizeList from "../../components/PageSizeList";
-import axios from "axios";
 import { RiEdit2Fill } from "react-icons/ri";
 import { apiGet, apiPut } from '../../services/httpServices';
 import { pathObj } from "../../services/apiPath";

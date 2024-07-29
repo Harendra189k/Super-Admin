@@ -3,7 +3,6 @@ import OButton from "../../components/reusable/OButton";
 import Loader from '../../layout/Loader';
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { apiPost } from '../../services/httpServices';
 import { pathObj } from '../../services/apiPath';
 
