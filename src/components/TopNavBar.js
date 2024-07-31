@@ -76,8 +76,8 @@ const TopNavBar = () => {
   };
 
   return (
-    <div className="topnavbar border-b py-4 px-4 md:px-8 dark:bg-slate-900 ">
-      <header className="topnavbar-upd bg-white items-center flex dark:bg-slate-900 border">
+    <div className="topnavbar border-b py-4 px-4 md:px-8 dark:bg-slate-900 mb-4">
+      <header className="topnavbar-upd bg-white items-center flex dark:bg-slate-900 border ">
         <div
           className={`mr-4 dark:text-white z-50 ${
             sidebarStatus === "open" ? "showToggleMenu" : ""
@@ -115,7 +115,7 @@ const TopNavBar = () => {
                 <figure className="inline-block overflow-hidden rounded-full">
                   <img
                   src="https://cdn-icons-png.flaticon.com/512/219/219970.png"
-                    className="w-[40px] h-[40px] inline"
+                    className="w-[40px] h-[40px] inline mt-2 mb-2"
                     alt=""
                   />
                 </figure>

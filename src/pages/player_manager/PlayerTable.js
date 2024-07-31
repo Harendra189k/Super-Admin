@@ -16,6 +16,9 @@ import Modal from "react-bootstrap/Modal";
 import PlayerPagination from "./PlayerPagination";
 import { LuLoader2 } from "react-icons/lu";
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const PlayerTable = () => {
   const { t } = useTranslation();
@@ -79,6 +82,7 @@ const PlayerTable = () => {
     try {
       const response = await apiPut(pathObj.UPDATE_PLAYER_STATUS, payloadData);
       if (response.data?.status === 200) {
+        toast.success(response?.data?.message)
         playerData();
         handleClose();
       } else {

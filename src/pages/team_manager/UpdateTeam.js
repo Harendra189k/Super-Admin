@@ -81,7 +81,7 @@ const UpdateTeam = (props) => {
       required: "sportType type is required",
     })}
   >
-    <option className="select-place" value="">Select Sport Type</option>
+    <option className="select-place" value="" disabled>Select Sport Type</option>
     <option value="cricket">cricket</option>
     <option value="football">football</option>
     <option value="badminton">badminton</option>

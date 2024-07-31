@@ -16,7 +16,8 @@ const UpdateAthlete = (props) => {
     handleSubmit,
 
     formState: { errors },
-  } = useForm({defaultValues:{membershipDate:formatToDateInputValue(new Date(props.dataView.membershipDate))}});
+  } = useForm({defaultValues:{membershipDate:formatToDateInputValue(new Date(props.dataView.membershipDate))}},
+);
 
   console.log("DataView====>>>", props.dataView);
 
@@ -270,7 +271,7 @@ const UpdateAthlete = (props) => {
                     required: "Membership type is required",
                   })}
                 >
-                  <option className="select-place" value="">
+                  <option className="select-place" value="" disabled>
                     Select Membership Type
                   </option>
                   <option value="Free Trial">Free Trial</option>

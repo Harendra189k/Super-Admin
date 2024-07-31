@@ -15,7 +15,9 @@ const AddPlayer = ({playerData}) => {
     watch,
     setError,
     reset
-  } = useForm();
+  } = useForm( {defaultValues: {
+    category: "" 
+  }});
   const [show, setShow] = useState(false);
   const handleClose = () =>
   {
@@ -155,11 +157,13 @@ const AddPlayer = ({playerData}) => {
   <span className="required-start">*</span>
   <select
     className="form-control"
+    aria-label="Select Membership Type"
+
     {...register("category", {
       required: "category type is required",
     })}
   >
-    <option className="select-place" value="">Select Category</option>
+    <option className="select-place" value="" disabled>Select Category</option>
     <option value="batsman">batsman</option>
     <option value="bowler">bowler</option>
     <option value="wicketkeeper">wicketkeeper</option>

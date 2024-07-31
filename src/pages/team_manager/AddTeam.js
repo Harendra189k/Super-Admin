@@ -14,7 +14,11 @@ const AddTeam = ({teamData}) => {
     watch,
     setError,
     reset
-  } = useForm();
+  } = useForm(
+   { defaultValues: {
+    sportType: ""
+    }}
+  );
   const [show, setShow] = useState(false);
   const handleClose = () =>{
     reset()
@@ -130,7 +134,7 @@ const AddTeam = ({teamData}) => {
       required: "sportType type is required",
     })}
   >
-    <option className="select-place" value="">Select Sport Type</option>
+    <option className="select-place" value="" disabled>Select Sport Type</option>
     <option value="cricket">cricket</option>
     <option value="football">football</option>
     <option value="badminton">badminton</option>

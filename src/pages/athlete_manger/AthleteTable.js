@@ -16,6 +16,9 @@ import Modal from "react-bootstrap/Modal";
 import AthletePagination from "./AthletePagination";
 import { LuLoader2 } from "react-icons/lu";
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const AthleteTable = () => {
   const { t } = useTranslation();
@@ -90,6 +93,7 @@ const AthleteTable = () => {
     try {
       const response = await apiPut(pathObj.UPDATE_ATHLETE_STATUS, payloadData);
       if (response.data?.status === 200) {
+        toast.success(response?.data?.message)
         athleteData();
         handleClose();
       } else {

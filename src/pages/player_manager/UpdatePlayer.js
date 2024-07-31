@@ -141,7 +141,7 @@ const UpdatePlayer = (props) => {
       required: "category type is required",
     })}
   >
-    <option className="select-place" value="">Select Category</option>
+    <option className="select-place" value="" disabled>Select Category</option>
     <option value="batsman">batsman</option>
     <option value="bowler">bowler</option>
     <option value="wicketkeeper">wicketkeeper</option>

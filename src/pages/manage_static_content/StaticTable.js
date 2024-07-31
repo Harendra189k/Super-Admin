@@ -182,7 +182,8 @@ const StaticTable = () => {
                   <td className="border py-3 px-3">{privacyPolicy.description.slice(0, 80)}...
                 <button className="btn-view-more" onClick={handleShowMore}>View More</button>
                   <Modal show={showMore} onHide={handleCloseMore}>
-        <Modal.Header closeButton>
+        <Modal.Header 
+        closeButton>
         </Modal.Header>
         <Modal.Body>{privacyPolicy.description}</Modal.Body>
         <Modal.Footer>

@@ -15,6 +15,9 @@ import Modal from "react-bootstrap/Modal";
 import CoachPagination from "./CoachPagination";
 import { LuLoader2 } from "react-icons/lu";
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
+import { toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+
 
 const Table = () => {
   const { t } = useTranslation();
@@ -80,6 +83,7 @@ const Table = () => {
     try {
       const response = await apiPut(pathObj.UPDATE_STATUS, payloadData);
       if (response.data?.status === 200) {
+        toast.success(response?.data?.message)
         coachData();
         handleClose();
       } else {

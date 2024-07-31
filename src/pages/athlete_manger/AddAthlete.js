@@ -15,7 +15,11 @@ const AddAthlete = ({athleteData}) => {
     watch,
     setError,
     reset,
-  } = useForm();
+  } = useForm(
+   { defaultValues: {
+      membershipType: "" 
+    }}
+  );
   const [show, setShow] = useState(false);
   const handleClose = () => {
     reset()
@@ -252,11 +256,13 @@ const AddAthlete = ({athleteData}) => {
                 <span className="required-start">*</span>
                 <select
                   className="form-control form-date"
+                  aria-label="Select Membership Type"
+
                   {...register("membershipType", {
                     required: "Membership type is required",
                   })}
                 >
-                  <option className="select-place" value="">Select Membership Type</option>
+                  <option className="select-place" value="" disabled>Select Membership Type</option>
                   <option value="Free Trial">Free Trial</option>
                   <option value="Standard Membership">
                     Standard Membership
