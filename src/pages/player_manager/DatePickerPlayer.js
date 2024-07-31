@@ -82,7 +82,6 @@ const DatePickerPlayer = ({
     return true;
   };
 
-
   const FilterDataByDate = async (data) => {
     if (!validateDates()) return;
     try {

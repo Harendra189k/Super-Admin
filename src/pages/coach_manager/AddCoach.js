@@ -200,6 +200,7 @@ const AddCoach = ({coachData}) => {
               <label>Password</label>
               <span className="required-start">*</span>
               <div className="password-input">
+                
                 <input
                   type={passwordShown ? "text" : "password"}
                   className="form-control"

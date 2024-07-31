@@ -609,8 +609,13 @@ overflow: auto;
   text-align: center;
   padding: 40px 40px 40px 40px;
 }
-.topnavbar-upd{
+.btn-view-more{
+color: rgb(0, 166, 255);
+font-size: 14px;
 }
+
+
+
 
 
 @keyframes spin {

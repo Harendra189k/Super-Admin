@@ -12,6 +12,7 @@ import UpdateTeam from "../team_manager/UpdateTeam";
 import UpdateStatic from "./UpdateStatic";
 import DatePickerStatic from "./DatePickerStatic";
 import { LuLoader2 } from "react-icons/lu";
+import dayjs from "dayjs";
 
 const StaticTable = () => {
   const { t } = useTranslation();
@@ -24,6 +25,13 @@ const StaticTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [loader,setLoader]=useState(false)
+
+  const [showMore, setShowMore] = useState(false);
+
+  const handleCloseMore = () => setShowMore(false);
+  const handleShowMore = () => setShowMore(true);
+  
+  
 
   const handleClose = () => setShow(false);
 
@@ -150,8 +158,11 @@ const StaticTable = () => {
                 <th scope="col" className="py-3 px-3">
                   Title
                 </th>
+                <th scope="col" className="py-3 px-3">
+                  Description
+                </th>
                 <th scope="col" className="py-3 px-6">
-                  UpdatedAt
+                  createdAt
                 </th>
                 <th scope="col" className="py-3 px-6 text-left">
                   {t("O_ACTION")}
@@ -163,29 +174,30 @@ const StaticTable = () => {
                loader ? <LuLoader2  className="loader" />
                : 
                currentItems.length > 0 ? currentItems.map((privacyPolicy, index) => {
-                let date = new Date(privacyPolicy["updatedAt"])
+                let date = new Date(privacyPolicy["createdAt"])
                 return (
                 <tr key={index}>
                   <td className="border py-3 px-3">{indexOfFirstItem  + index + 1}</td>
                   <td className="border py-3 px-3">{privacyPolicy.title}</td>
-                  <td className="border py-3 px-3">{date.toLocaleDateString()}</td>
-                  {/* <td className="border py-3 px-3">
-                    <label className="switch">
-                      <input
-                        type="checkbox"
-                        checked={team.status === "active" ? true : false}
-                        onClick={() => handleShow(team)}
-                      />
-                      <span className="slider round"></span>
-                    </label>
-                  </td> */}
-
+                  <td className="border py-3 px-3">{privacyPolicy.description.slice(0, 80)}...
+                <button className="btn-view-more" onClick={handleShowMore}>View More</button>
+                  <Modal show={showMore} onHide={handleCloseMore}>
+        <Modal.Header closeButton>
+        </Modal.Header>
+        <Modal.Body>{privacyPolicy.description}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseMore}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+                  </td>
+                  <td className="border py-3 px-3">{dayjs(date).format('YYYY-MM-DD')}</td>
                   <td className="border py-4 px-3 flex">
                     <RiEdit2Fill
                       onClick={() => modelview(privacyPolicy)}
                       className="edit-icon"
-                    />
-                    
+                    /> 
                   </td>
                 </tr>
                 )
@@ -196,13 +208,6 @@ const StaticTable = () => {
             </tbody>
           </table>
           </div>
-          {/* <TeamPagination
-            totalItems={teamList.length}
-            itemsPerPage={itemsPerPage}
-            currentPage={currentPage}
-            onPageChange={(pageNumber) => setCurrentPage(pageNumber)}
-            onItemsPerPageChange={(pageSize) => setItemsPerPage(pageSize)}
-          /> */}
         
       </div>
       <Modal show={show} onHide={handleClose} className="status-model">
@@ -234,13 +239,6 @@ const StaticTable = () => {
           dataView={fatchData}
         />
       )}
-      {/* {showDeleteModel && (
-        <DeleteTeam
-          showdel={showDeleteModel}
-          deleteModelView={deleteModelView}
-          dataView={fatchData}
-        />
-      )} */}
     </>
   );
 };

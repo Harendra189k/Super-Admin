@@ -6,6 +6,8 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { apiGet } from "../../services/httpServices";
 import { pathObj } from "../../services/apiPath";
+import { useForm } from "react-hook-form";
+import dayjs from "dayjs";
 
 const pickerClasses = [
   "cursor-pointer",
@@ -32,10 +34,17 @@ const pickerClasses = [
 ];
 
 const DatePickerStatic = ({ props, onFilter, privacyPolicyData, setRecords }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm();
   const { t } = useTranslation();
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [reset, setRest] = useState("");
+  const [error, setError] = useState("");
+  // const [reset, setRest] = useState("");
   const [searchText, setSearchText] = useState("");
 
   const handleChange = (event) => {
@@ -46,13 +55,29 @@ const DatePickerStatic = ({ props, onFilter, privacyPolicyData, setRecords }) =>
   const handleReset = () => {
     setStartDate("");
     setEndDate("");
+    setError("");
+  };
+  const validateDates = () => {
+    if (!startDate) {
+      setError(<p>start dates is required"</p>);
+      return false;
+    }
+
+    if (new Date(startDate) > new Date(endDate)) {
+      setError("Start date cannot be after end date.");
+      return false;
+    }
+
+    return true;
   };
 
   const FilterDataByDate = async (data) => {
+    if (!validateDates()) return;
+    console.log(startDate)
     try {
       const payload = {
-        startDate: startDate,
-        endDate: endDate,
+        startDate: dayjs(startDate).format('YYYY-MM-DD'),
+        endDate: endDate && dayjs(endDate).format('YYYY-MM-DD'),
       };
       const response = await apiGet(pathObj.FILTER_DATA_BY_DATE_STATIC, payload);
       console.log(response.data);
@@ -69,18 +94,22 @@ const DatePickerStatic = ({ props, onFilter, privacyPolicyData, setRecords }) =>
         <label className="mx-2 text-[#B8BBBF] text-xs whitespace-nowrap">
           {t("O_FROM")}
         </label>
+        <div>
         <Flatpickr
           className={pickerClasses.join(" ")}
           name="start_date"
           placeholder={t("O_START_DATE")}
-          onChange={([date]) => setStartDate(date)}
+          onChange={([date]) => {setStartDate(date)
+            setError("")
+          }}
           value={startDate}
           options={{
             maxDate: endDate,
             dateFormat: "m/d/Y",
           }}
         />
-
+      {error && <p className="text-red-500">{error}</p>}
+      </div>
         <div className="dpicker relative flex items-center mb-3">
           <label className="mx-2 text-[#B8BBBF] text-xs whitespace-nowrap">
             {t("O_TO")}
@@ -92,7 +121,7 @@ const DatePickerStatic = ({ props, onFilter, privacyPolicyData, setRecords }) =>
             onChange={([date]) => setEndDate(date)}
             value={endDate}
             options={{
-              minDate: startDate,
+              minDate: startDate ,
               dateFormat: "m/d/Y",
             }}
           />

@@ -251,7 +251,7 @@ const UpdateAthlete = (props) => {
                     },
                     max: {
                       value: 150,
-                      message: "Weight should be less than 150 KG",
+                      message: "Weight should be less or equal to 150 KG",
                     },
                   })}
                 />
