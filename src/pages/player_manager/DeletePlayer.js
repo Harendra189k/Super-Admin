@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { apiDelete } from '../../services/httpServices';
 import { pathObj } from '../../services/apiPath';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const DeletePlayer = (props) => {
 
@@ -11,7 +13,8 @@ const DeletePlayer = (props) => {
         
         try {
           const response = await apiDelete(pathObj.DELETE_PLAYER + `/${props.dataView._id}`);
-          if (response.data?.status === 200) {
+          if (response?.data?.status === 200) {
+            toast.success(response?.data?.message)
             props.deleteModelView()
 
           } else {
@@ -28,7 +31,7 @@ const DeletePlayer = (props) => {
         <Modal.Header closeButton>
           <Modal.Title>Delete Coach</Modal.Title>
         </Modal.Header>
-        <img className='delete-status-model' src='https://www.shutterstock.com/image-vector/delete-icon-no-sign-close-600nw-1077922715.jpg'></img>
+        {/* <img className='delete-status-model' src='https://www.shutterstock.com/image-vector/delete-icon-no-sign-close-600nw-1077922715.jpg'></img> */}
         <Modal.Body>Are You Sure to Delete the Coach. ?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={props.deleteModelView}>

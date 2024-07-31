@@ -45,13 +45,13 @@ const DatePickerPlayer = ({
     handleSubmit,
     formState: { errors },
     watch,
-    setError,
   } = useForm();
 
   const { t } = useTranslation();
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [reset, setRest] = useState("");
+  const [error, setError] = useState("");
+  // const [reset, setRest] = useState("");
 
   const [searchText, setSearchText] = useState("");
   const [searchDate, setSearchDate] = useState("");
@@ -65,10 +65,26 @@ const DatePickerPlayer = ({
   const handleReset = () => {
     setStartDate("");
     setEndDate("");
+    setError("");
     console.log("handle");
   };
+  const validateDates = () => {
+    if (!startDate) {
+      setError(<p>start dates is required"</p>);
+      return false;
+    }
+
+    if (new Date(startDate) > new Date(endDate)) {
+      setError("Start date cannot be after end date.");
+      return false;
+    }
+
+    return true;
+  };
+
 
   const FilterDataByDate = async (data) => {
+    if (!validateDates()) return;
     try {
       const payload = {
         startDate: startDate,
@@ -89,21 +105,28 @@ const DatePickerPlayer = ({
     // <div className='sm:flex items-center text-center sm:text-left px-3 md:px-4 xl:px-7 lg:px-5  md:py-5 py-4 md:py-8 border'>
     <>
       <div className="datepickerr relative flex items-center mb-3">
+        
         <label className="mx-2 text-[#B8BBBF] text-xs whitespace-nowrap">
           {t("O_FROM")}
         </label>
+        <div>
         <Flatpickr
           className={pickerClasses.join(" ")}
           name="start_date"
           placeholder={t("O_START_DATE")}
           value={startDate}
-          onChange={([date]) => setStartDate(date)}
+          onChange={([date]) => {setStartDate(date)
+            setError("")
+          }}
           options={{
             maxDate: endDate,
             dateFormat: "m/d/Y",
           }}
         />
+        {error && <p className="text-red-500">{error}</p>}
+        </div>
 
+<p className="error-msg">{errors.StartDate?.message}</p>
         <div className="dpicker relative flex items-center mb-3">
           <label className="mx-2 text-[#B8BBBF] text-xs whitespace-nowrap">
             {t("O_TO")}
@@ -112,9 +135,7 @@ const DatePickerPlayer = ({
             className={pickerClasses.join(" ")}
             name="end_date"
             placeholder={t("O_END_DATE")}
-            {...register("endDate", {
-              required: "endDate is required",
-            })}
+          
             value={endDate}
             onChange={([date]) => setEndDate(date)}
             options={{
@@ -122,6 +143,7 @@ const DatePickerPlayer = ({
               dateFormat: "m/d/Y",
             }}
           />
+          
           <p className="error-msg">{errors.endDate?.message}</p>
         </div>
         <div>
@@ -154,9 +176,9 @@ const DatePickerPlayer = ({
           title=""
           required
         />
-
         <AddPlayer playerData={playerData} />
         <br/>
+
       </div>
     </>
     // </div>

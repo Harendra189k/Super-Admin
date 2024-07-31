@@ -4,7 +4,8 @@ import Modal from "react-bootstrap/Modal";
 import { useForm } from "react-hook-form";
 import { apiPut } from "../../services/httpServices";
 import { pathObj } from "../../services/apiPath";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
   
 const UpdateTeam = (props) => {
 
@@ -19,6 +20,7 @@ const UpdateTeam = (props) => {
     try {
       const response = await apiPut(pathObj.UPDATE_TEAM, payloadData);
       if (response.data?.status === 200) {
+        toast.success(response?.data?.message)
         props.handleClose()
         
       } else {
@@ -52,10 +54,11 @@ const UpdateTeam = (props) => {
 
         <div className="form-group">
               <label>Team Name</label>
+              <span className="required-start">*</span>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Enter team name"
+                // placeholder="Enter team name"
                 defaultValue={props.dataView.teamName}
                 {...register("teamName", {
                   required: "teamName is required",
@@ -70,6 +73,7 @@ const UpdateTeam = (props) => {
 
 <div className="form-group ">
   <label>Sport Type</label>
+  <span className="required-start">*</span>
   <select
     className="form-control"
     defaultValue={props.dataView.sportType}
@@ -77,7 +81,7 @@ const UpdateTeam = (props) => {
       required: "sportType type is required",
     })}
   >
-    <option value="">Select Sport Type</option>
+    <option className="select-place" value="">Select Sport Type</option>
     <option value="cricket">cricket</option>
     <option value="football">football</option>
     <option value="badminton">badminton</option>
@@ -89,10 +93,11 @@ const UpdateTeam = (props) => {
 
             <div className="form-group ">
               <label>Coach Name</label>
+              <span className="required-start">*</span>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Enter coach name"
+                // placeholder="Enter coach name"
                 defaultValue={props.dataView.coachName}
                 {...register("coachName", {
                   required: "coachName is required",
@@ -100,10 +105,7 @@ const UpdateTeam = (props) => {
                     value: 2,
                     message: "coachNamemust contain at least two characters",
                   },
-                  pattern: {
-                    value: /^[A-Za-z]+$/,
-                    message: "Invalid Name Format!",
-                  },
+                  
                 })}
               />
               <p className="error-msg">{errors.coachName?.message}</p>

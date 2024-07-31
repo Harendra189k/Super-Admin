@@ -17,7 +17,10 @@ const AddAthlete = ({athleteData}) => {
     reset,
   } = useForm();
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    reset()
+    setShow(false);
+  }
   const handleShow = () => setShow(true);
 
   const [passwordShown, setPasswordShown] = useState(false);
@@ -75,6 +78,14 @@ const AddAthlete = ({athleteData}) => {
     addAthlete(data);
   };
 
+   const preventMaxInput = (e, limit) => {
+    e.target.value = e.target.value.trimStart();
+    e.target.value = e.target.value.replace(/  +/g, " ");
+    if (e.target.value.length > limit) {
+      e.target.value = e.target.value.slice(0, limit);
+    }
+  };
+
   return (
     <div>
       <button
@@ -93,10 +104,11 @@ const AddAthlete = ({athleteData}) => {
             <div className="flex">
               <div className="form-group mr-3">
                 <label>First Name</label>
+                <span className="required-start">*</span>
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Enter first name"
+                  // placeholder="Enter first name"
                   {...register("firstName", {
                     required: "First Name is required",
                     minLength: {
@@ -115,10 +127,11 @@ const AddAthlete = ({athleteData}) => {
 
               <div className="form-group">
                 <label>Last Name</label>
+                <span className="required-start">*</span>
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Enter last name"
+                  // placeholder="Enter last name"
                   {...register("lastName", {
                     required: "Last Name is required",
                     minLength: {
@@ -138,10 +151,11 @@ const AddAthlete = ({athleteData}) => {
             <div className="flex">
               <div className="form-group mr-3">
                 <label>Email</label>
+                <span className="required-start">*</span>
                 <input
                   type="email"
                   className="form-control form-emaill"
-                  placeholder="Enter email"
+                  // placeholder="Enter email"
                   {...register("email", {
                     required: "Email is required",
                     pattern: {
@@ -155,10 +169,13 @@ const AddAthlete = ({athleteData}) => {
 
               <div className="form-group">
                 <label>Phone Number</label>
+                <span className="required-start">*</span>
                 <input
                   type="number"
                   className="form-control"
-                  placeholder="Enter phone number"
+                  // placeholder="Enter phone number"
+                  maxLength={10}
+                  onInput={(e) => preventMaxInput(e, 10)}
                   {...register("phone", {
                     required: "Phone Number is required",
                     minLength: {
@@ -178,12 +195,16 @@ const AddAthlete = ({athleteData}) => {
             <div className="flex">
               <div className="form-group mr-3">
                 <label>Height (feet)</label>
+                <span className="required-start">*</span> 
                 <input
                   type="number"
                   step="any"
                   className="form-control"
-                  placeholder="Enter email"
+                  // placeholder="Enter email"
                   min={0}
+                  maxLength={1}
+                  max={7}
+                  onInput={(e) => preventMaxInput(e, 1)}
                   {...register("height", {
                     required: "Height is required",
                     min: {
@@ -201,25 +222,23 @@ const AddAthlete = ({athleteData}) => {
 
               <div className="form-group">
                 <label>Weight (Kg)</label>
+                <span className="required-start">*</span>
                 <input
                   type="number"
                   className="form-control"
-                  placeholder="Enter phone number"
                   min={0}
+                  max={150}
+                  maxLength={3}
+                  onInput={(e) => preventMaxInput(e, 3)}
                   {...register("weight", {
                     required: "Weight is required",
                     min: {
                       value: 25,
-                      message: "Weight should be greater than 25 feet",
+                      message: "Weight should be greater than 25 KG",
                     },
                     max: {
                       value: 150,
-                      message: "Weight should be less than 159 feet",
-                    },
-
-                    maxLength: {
-                      value: 10,
-                      message: "Weight must contain exactly 10 digits",
+                      message: "Weight should be less than 151 KG",
                     },
                   })}
                 />
@@ -230,13 +249,14 @@ const AddAthlete = ({athleteData}) => {
             <div className="flex">
               <div className="form-group mr-3">
                 <label>MemberShip Type</label>
+                <span className="required-start">*</span>
                 <select
                   className="form-control form-date"
                   {...register("membershipType", {
                     required: "Membership type is required",
                   })}
                 >
-                  <option value="">Select Membership Type</option>
+                  <option className="select-place" value="">Select Membership Type</option>
                   <option value="Free Trial">Free Trial</option>
                   <option value="Standard Membership">
                     Standard Membership
@@ -250,6 +270,7 @@ const AddAthlete = ({athleteData}) => {
 
               <div className="form-group">
                 <label>MemberShip Date</label>
+                <span className="required-start">*</span>
                 <input
                   type="date"
                   className="form-control form-date"
@@ -264,11 +285,12 @@ const AddAthlete = ({athleteData}) => {
             <div className="flex">
               <div className="form-group mr-3">
                 <label>Password</label>
+                <span className="required-start">*</span>
                 <div className="password-input form-date">
                   <input
                     type={passwordShown ? "text" : "password"}
                     className="form-control"
-                    placeholder="Enter password"
+                    // placeholder="Enter password"
                     {...register("password", {
                       required: "Password is required",
                       minLength: {
@@ -285,18 +307,19 @@ const AddAthlete = ({athleteData}) => {
                     className="password-toggle-icon"
                     onClick={togglePasswordVisibility}
                   >
-                    {passwordShown ? <AiFillEyeInvisible /> : <AiFillEye />}
+                    {passwordShown ? <AiFillEye /> : <AiFillEyeInvisible />}
                   </span>
                 </div>
               </div>
 
               <div className="form-group">
                 <label>Confirm Password</label>
+                <span className="required-start">*</span>
                 <div className="password-input">
                   <input
                     type={confirmPasswordShown ? "text" : "password"}
                     className="form-control"
-                    placeholder="Confirm password"
+                    // placeholder="Confirm password"
                     {...register("confirmPassword", {
                       required: "Confirm Password is required",
                       minLength: {
@@ -314,9 +337,9 @@ const AddAthlete = ({athleteData}) => {
                     onClick={toggleConfirmPasswordVisibility}
                   >
                     {confirmPasswordShown ? (
-                      <AiFillEyeInvisible />
-                    ) : (
                       <AiFillEye />
+                    ) : (
+                      <AiFillEyeInvisible />
                     )}
                   </span>
                 </div>

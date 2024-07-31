@@ -17,7 +17,11 @@ const AddPlayer = ({playerData}) => {
     reset
   } = useForm();
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const handleClose = () =>
+  {
+    reset()
+    setShow(false);
+  }
   const handleShow = () => setShow(true);
 
   const [passwordShown, setPasswordShown] = useState(false);
@@ -87,6 +91,7 @@ const AddPlayer = ({playerData}) => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
               <label>First Name</label>
+              <span className="required-start">*</span>
               <input
                 type="text"
                 className="form-control"
@@ -107,6 +112,7 @@ const AddPlayer = ({playerData}) => {
             </div>
             <div className="form-group">
               <label>Last Name</label>
+              <span className="required-start">*</span>
               <input
                 type="text"
                 className="form-control"
@@ -128,6 +134,7 @@ const AddPlayer = ({playerData}) => {
 
             <div className="form-group">
               <label>Email</label>
+              <span className="required-start">*</span>
               <input
                 type="email"
                 className="form-control"
@@ -145,13 +152,14 @@ const AddPlayer = ({playerData}) => {
 
 <div className="form-group ">
   <label>Category</label>
+  <span className="required-start">*</span>
   <select
     className="form-control"
     {...register("category", {
       required: "category type is required",
     })}
   >
-    <option value="">Select Category</option>
+    <option className="select-place" value="">Select Category</option>
     <option value="batsman">batsman</option>
     <option value="bowler">bowler</option>
     <option value="wicketkeeper">wicketkeeper</option>

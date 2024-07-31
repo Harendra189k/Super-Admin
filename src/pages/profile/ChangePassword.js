@@ -8,6 +8,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Card } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ChangePassword = () => {
   const navigate = useNavigate();
@@ -26,7 +28,7 @@ const ChangePassword = () => {
 
   const changeAdminPassword = async (data) => {
     const payloadData = {
-      email: data.email,
+      // email: data.email,
       oldPassword: data.oldPassword,
       newPassword: data.newPassword,
     };
@@ -34,6 +36,7 @@ const ChangePassword = () => {
     try {
       const response = await apiPut(pathObj.CHANGE_ADMIN_PASSWORD, payloadData);
       if (response.data?.status === 200) {
+        toast.success(response?.data?.message)
         navigate("/dashboard");
         reset();
       } else {
@@ -72,7 +75,7 @@ const ChangePassword = () => {
         <div className="change-password-admin row mt-20">
           <div className="col-md-9 personal-info">
             <form className="form-horizontal mt-4" role="form" onSubmit={handleSubmit(changeAdminPassword)}>
-              <div className="form-group-pass">
+              {/* <div className="form-group-pass">
                 <div className="col-lg-8">
                   <input
                     className="form-control"
@@ -88,7 +91,7 @@ const ChangePassword = () => {
                   />
                   <p className="error-msg">{errors.email?.message}</p>
                 </div>
-              </div>    
+              </div>     */}
 
 <div className="form-group-pass">
   <div className="col-md-8">
@@ -111,7 +114,7 @@ const ChangePassword = () => {
       />
       <div className="input-group-append" onClick={toggleOldPasswordVisibility} style={{ cursor: 'pointer' }}>
         <span className="input-group-text">
-          <FontAwesomeIcon icon={showOldPassword ? faEyeSlash : faEye} />
+          <FontAwesomeIcon icon={showOldPassword ? faEye : faEyeSlash} />
         </span>
       </div>
     </div>
@@ -139,7 +142,7 @@ const ChangePassword = () => {
                     />
                     <div className="input-group-appendc" onClick={toggleNewPasswordVisibility} style={{ cursor: 'pointer' }}>
                       <span className="input-group-text">
-                        <FontAwesomeIcon icon={showNewPassword ? faEyeSlash : faEye} />
+                        <FontAwesomeIcon icon={showNewPassword ? faEye : faEyeSlash} />
                       </span>
                     </div>
                   </div>
@@ -164,7 +167,7 @@ const ChangePassword = () => {
                     />
                      <div className="input-group-appendc" onClick={toggleConfirmPasswordVisibility} style={{ cursor: 'pointer' }}>
                       <span className="input-group-text">
-                        <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
+                        <FontAwesomeIcon icon={showConfirmPassword ? faEye : faEyeSlash} />
                       </span>
                     </div>
                     </div>
@@ -172,12 +175,12 @@ const ChangePassword = () => {
                 </div>
               </div>
 
-              <div className="form-group">
+              <div className="form-group-">
                 <div className="col-md-8">
                   <input type="submit" className="btn btn-primary" value="Save Changes" />
                   <span></span>
                   <Link to='/dashboard'>
-                  <input type="reset" className="btn btn-default" value="Cancel" />
+                  <input type="reset" className="btn btn-secondary ml-2" value="Cancel" />
                   </Link>
                 </div>
               </div>

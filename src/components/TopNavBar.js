@@ -52,9 +52,9 @@ const TopNavBar = () => {
       console.error(error);
     }
   };
-  useEffect(() => {
-    profileDetails();
-  }, []);
+  // useEffect(() => {
+  //   profileDetails();
+  // }, []);
   
   
 
@@ -76,8 +76,8 @@ const TopNavBar = () => {
   };
 
   return (
-    <div className="topnavbar border-b py-4 px-4 md:px-8 dark:bg-slate-900">
-      <header className="bg-white items-center flex dark:bg-slate-900">
+    <div className="topnavbar border-b py-4 px-4 md:px-8 dark:bg-slate-900 ">
+      <header className="topnavbar-upd bg-white items-center flex dark:bg-slate-900 border">
         <div
           className={`mr-4 dark:text-white z-50 ${
             sidebarStatus === "open" ? "showToggleMenu" : ""
@@ -99,7 +99,7 @@ const TopNavBar = () => {
           </svg> */}
         </div>
         <p>Super Coach</p>
-        <div className="page_heading ">
+        <div className="page_heading">
           <h1 className="flex items-center text-lg text-slate-900 font-medium dark:text-white">
             {pageName}
           </h1>
@@ -143,6 +143,7 @@ const TopNavBar = () => {
                       className={`${
                         active ? "bg-gradientTo text-white" : "text-gray-900"
                       } group flex w-full items-center  px-6 py-2 text-sm`}
+                      onClick={profileDetails}
                     >
                       Edit profile
                     </Link>

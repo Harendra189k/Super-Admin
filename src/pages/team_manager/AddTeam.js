@@ -16,7 +16,10 @@ const AddTeam = ({teamData}) => {
     reset
   } = useForm();
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const handleClose = () =>{
+    reset()
+    setShow(false);
+  } 
   const handleShow = () => setShow(true);
 
   const [passwordShown, setPasswordShown] = useState(false);
@@ -101,11 +104,12 @@ const AddTeam = ({teamData}) => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
               <label>Team Name</label>
+              <span className="required-start">*</span>
               <input
                 type="text"
-                pattern="[A-Za-z]+"
+                // pattern="[A-Za-z]+"
                 className="form-control"
-                placeholder="Enter team name"
+                // placeholder="Enter team name"
                 {...register("teamName", {
                   required: "teamName is required",
                   minLength: {
@@ -119,13 +123,14 @@ const AddTeam = ({teamData}) => {
 
 <div className="form-group ">
   <label>Sport Type</label>
+  <span className="required-start">*</span>
   <select
     className="form-control"
     {...register("sportType", {
       required: "sportType type is required",
     })}
   >
-    <option value="">Select Sport Type</option>
+    <option className="select-place" value="">Select Sport Type</option>
     <option value="cricket">cricket</option>
     <option value="football">football</option>
     <option value="badminton">badminton</option>
@@ -137,20 +142,21 @@ const AddTeam = ({teamData}) => {
 
             <div className="form-group ">
               <label>Coach Name</label>
+              <span className="required-start">*</span>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Enter coach name"
+                // placeholder="Enter coach name"
                 {...register("coachName", {
                   required: "coachName is required",
                   minLength: {
                     value: 2,
                     message: "coachNamemust contain at least two characters",
                   },
-                  pattern: {
-                    value: /^[A-Za-z]+$/,
-                    message: "Invalid Name Format!",
-                  },
+                  // pattern: {
+                  //   value: /^[A-Za-z]+$/,
+                  //   message: "Invalid Name Format!",
+                  // },
                 })}
               />
               <p className="error-msg">{errors.coachName?.message}</p>

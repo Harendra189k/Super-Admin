@@ -280,7 +280,7 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
   margin-right: 20px;
 }
 .datepickerr{
-  /* margin-left: 300px; */
+  margin-left: 300px;
 }
 .dpicker{
   margin-left: 30px;
@@ -455,17 +455,7 @@ color: #000000;
 }
 
 
-
-
-
-
-
-
-
-
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300);
-
-
 
 .jumbotron-flat {
   background-color: black;
@@ -601,9 +591,26 @@ overflow: auto;
   height: 30px;
   margin-right: 5px;
 }
-
-
-
+.select-place{
+  color: #8a928c;
+}
+.required-start{
+  color: red;
+}
+/* .lastName-profile{
+  margin-top: 10px;
+} */
+.error-msg-filter{
+}
+.no-data-found{
+  font-size: 40px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 40px 40px 40px;
+}
+.topnavbar-upd{
+}
 
 
 @keyframes spin {

@@ -6,6 +6,8 @@ import { apiGet, apiPut } from '../../services/httpServices';
 import { pathObj } from '../../services/apiPath';
 import { Link, useNavigate } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Profile = () => {
 
@@ -50,6 +52,7 @@ const Profile = () => {
     try {
       const response = await apiPut(pathObj.UPDATE_ADMIN, payloadData);
       if (response.data?.status === 200) {
+        toast.success(response?.data?.message)
         setStoreAdmin(response.data)
         navigate("/dashboard")
         reset()
@@ -84,7 +87,8 @@ const Profile = () => {
         
         <form className="form-horizontal mt-4 " role="form" onSubmit={handleSubmit(updateAdmin)}>
 <div className="form-group">
-            <label className="profile-label">FirstName:</label>
+            {/* <label className="profile-label">FirstName</label> */}
+            <span className="required-start-profile">*</span>
             <div className="col-md-8">
               <input className="form-control" type="text" placeholder='FirstName'
               defaultValue={storeAdmin.firstName}
@@ -97,9 +101,9 @@ const Profile = () => {
               />
               <p className='error-msg'>{errors.firstName?.message}</p>
             </div>
-            <label className="profile-label-ln ">LastName:</label>
+            {/* <label className="profile-label-ln ">LastName:</label> */}
             <div className="col-md-8">
-              <input className="form-control" type="text" placeholder='lastName'
+              <input className="form-control lastName-profile mt-3" type="text" placeholder='lastName'
               defaultValue={storeAdmin.lastName}
               {...register('lastName', { required: "Last Name is required",
                 minLength: {
@@ -112,7 +116,7 @@ const Profile = () => {
             </div>
           </div>
           <div className="form-group">
-            <label className="profile-label-em ">Email:</label>
+            {/* <label className="profile-label-em ">Email:</label> */}
             <div className="col-lg-8">
              <input
   className="form-control"
@@ -132,13 +136,13 @@ const Profile = () => {
             </div>
           </div>
          
-          <div className="form-group">
+          <div className="form-group-">
             <label className="col-md-3 control-label"></label>
             <div className="col-md-8">
               <input type="submit" className="btn btn-primary" value="Save Changes"/>
               <span></span>
               <Link to='/dashboard'>
-              <input type="reset" className="btn btn-default bg-white ml-3" value="Cancel"/>
+              <input type="reset" className="btn btn-secondary ml-3" value="Cancel"/>
               </Link>
             </div>
           </div>

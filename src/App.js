@@ -19,6 +19,8 @@ import ResetPasswordVerify from './pages/auth/ResetPasswordVerify';
 import ResetPassword from './pages/auth/ResetPassword';
 import PlayerTable from './pages/player_manager/PlayerTable';
 import StaticTable from './pages/manage_static_content/StaticTable';
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const token = localStorage.getItem("token")
@@ -32,9 +34,12 @@ function App() {
       navigate("/");
     }
   }, [token]);
+  // const notify = () => toast("Wow so easy!");
 
   return (
     <div className="App">
+       {/* <button onClick={notify}>Notify!</button> */}
+       <ToastContainer />
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="forgot-password" element={<ForgotPassword />} />

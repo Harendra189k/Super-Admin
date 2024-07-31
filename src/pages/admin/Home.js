@@ -13,6 +13,7 @@ import { RiTeamFill } from "react-icons/ri";
 import { apiGet } from '../../services/httpServices';
 import { pathObj } from '../../services/apiPath';
 import { LuLoader2 } from 'react-icons/lu';
+import { NavLink } from 'react-router-dom';
 
 
 const Home = () => {
@@ -49,6 +50,7 @@ const Home = () => {
     <TopNavBar />
     <div className="py-4 px-4 md:px-8 dark:bg-slate-900 home-adj">
       <div className="sale_report grid pt-10 3xl:grid-cols-4 gap-y-10 gap-4 gap-x-10 2xl:grid-cols-4 sm:grid-cols-2 mb-7 ">
+       <NavLink to="/coach-manager">
         <div className="text-center relative  sm:text-left px-3 md:px-4 xl:px-6 lg:px-5 rounded-lg py-4 md:py-8 border">
           <h3 className="text-center mb-0 text-slate-900 font-bold md:text-3xl sm:text-lg dark:text-white">
             <OCountUp value={dashboardDetails?.coach} />
@@ -58,7 +60,9 @@ const Home = () => {
             <FaUserTie /> 
           </span>
         </div>
+       </NavLink>
 
+        <NavLink to="/athlete-manager">
         <div className="text-center relative  sm:text-left px-3 md:px-4 xl:px-6 lg:px-5 rounded-lg py-4 md:py-8 border">
           <h3 className="text-center mb-0 text-slate-900 font-bold md:text-3xl sm:text-lg dark:text-white">
             <OCountUp value={dashboardDetails?.athlete} />
@@ -70,6 +74,8 @@ const Home = () => {
 
           </span>
         </div>
+        </NavLink>
+
         <div className="text-center relative  sm:text-left px-3 md:px-4 xl:px-6 lg:px-5 rounded-lg py-4 md:py-8 border">
           <h3 className="text-center mb-0 text-slate-900 font-bold md:text-3xl sm:text-lg dark:text-white">
           <OCountUp value={dashboardDetails?.totalSports} />
@@ -80,6 +86,8 @@ const Home = () => {
 
           </span>
         </div>
+
+        <NavLink to="/team-manager">
         <div className="text-center relative  sm:text-left px-3 md:px-4 xl:px-6 lg:px-5 rounded-lg py-4 md:py-8 border">
           <h3 className="text-center mb-0 text-slate-900 font-bold md:text-3xl sm:text-lg dark:text-white">
           <OCountUp value={dashboardDetails?.addTeam} />
@@ -87,10 +95,11 @@ const Home = () => {
           </h3>
           <span className="text-4xl ml-auto sm:mr-0  mt-2 sm:mt-0 absolute right-[-10px] top-[-30px] p-3 border z-10 bg-white">
             <RiTeamFill />
-
           </span>
         </div>
+        </NavLink>
 
+        <NavLink to="/player-manager">
         <div className="text-center relative  sm:text-left px-3 md:px-4 xl:px-6 lg:px-5 rounded-lg py-4 md:py-8 border">
           <h3 className="text-center mb-0 text-slate-900 font-bold md:text-3xl sm:text-lg dark:text-white">
           <OCountUp value={dashboardDetails?.addPlayer} />
@@ -98,9 +107,9 @@ const Home = () => {
           </h3>
           <span className="text-4xl ml-auto sm:mr-0  mt-2 sm:mt-0 absolute right-[-10px] top-[-30px] p-3 border z-10 bg-white">
             <GiBabyfootPlayers />
-
           </span>
         </div>
+        </NavLink>
     
       {loader && <LuLoader2 className="loader-home " />}
       </div>

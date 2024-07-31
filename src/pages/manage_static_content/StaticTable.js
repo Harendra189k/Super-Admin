@@ -60,7 +60,7 @@ const StaticTable = () => {
 //   }, [fatchData]);
 
   const privacyPolicyData = async (data) => {
-    setLoader(true)
+    // setLoader(true)
     try {
       const response = await apiGet(pathObj.GET_PRIVACY_POLICY);
       if (response.status === 200) {
@@ -139,8 +139,8 @@ const StaticTable = () => {
       <div className="">
         <Sidebar />
         <TopNavBar />
-        <div className="coach-table overflow-x-auto relative rounded-lg border">
         <DatePickerStatic onFilter={Filter} setRecords={setRecords} privacyPolicyData={privacyPolicyData} />
+        <div className="coach-table overflow-x-auto relative rounded-lg border">
           <table className="w-full text-xs text-left text-[#A5A5A5] dark:text-gray-400">
             <thead className="text-xs text-gray-900 border border-[#E1E6EE] bg-[#E1E6EE] dark:bg-gray-700 dark:text-gray-400 dark:border-[#ffffff38]">
               <tr>
@@ -159,8 +159,10 @@ const StaticTable = () => {
               </tr>
             </thead>
             <tbody>
-              {loader ? <LuLoader2  className="loader" />
-              :currentItems.map((privacyPolicy, index) => {
+              {
+               loader ? <LuLoader2  className="loader" />
+               : 
+               currentItems.length > 0 ? currentItems.map((privacyPolicy, index) => {
                 let date = new Date(privacyPolicy["updatedAt"])
                 return (
                 <tr key={index}>
@@ -187,7 +189,10 @@ const StaticTable = () => {
                   </td>
                 </tr>
                 )
-              })}
+              }):<tr className="py-3 px-3 w-full text-center flex no-data-found">
+              <td>
+              No data Found
+                </td></tr>}
             </tbody>
           </table>
           </div>

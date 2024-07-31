@@ -36,7 +36,8 @@ const ODateRangePicker = ({ props, onFilter, setRecords, coachData}) => {
   const { t } = useTranslation();
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [reset, setRest] = useState("");
+  // const [reset, setRest] = useState("");
+  const [error, setError] = useState("");
   const [searchText, setSearchText] = useState("");
 
   const handleChange = (event) => {
@@ -48,10 +49,27 @@ const ODateRangePicker = ({ props, onFilter, setRecords, coachData}) => {
   const handleReset = () => {
     setStartDate("");
     setEndDate("");
+    setError("");
     console.log("handle");
   };
 
+  const validateDates = () => {
+    if (!startDate) {
+      setError(<p>start dates is required</p>);
+      return false;
+    }
+
+    if (new Date(startDate) > new Date(endDate)) {
+      setError("Start date cannot be after end date.");
+      return false;
+    }
+
+    return true;
+  };
+
+
   const FilterDataByDate = async (data) => {
+    if (!validateDates()) return;
     try {
       const payload = {
         startDate: startDate,
@@ -72,18 +90,22 @@ const ODateRangePicker = ({ props, onFilter, setRecords, coachData}) => {
         <label className="mx-2 text-[#B8BBBF] text-xs whitespace-nowrap">
           {t("O_FROM")}
         </label>
+        <div>
         <Flatpickr
           className={pickerClasses.join(" ")}
           name="start_date"
           placeholder={t("O_START_DATE")}
-          onChange={([date]) => setStartDate(date)}
+          onChange={([date]) => {setStartDate(date)
+            setError("")
+          }}
           value={startDate}
           options={{
             maxDate: endDate,
             dateFormat: "m/d/Y",
           }}
         />
-
+        {error && <p className="text-red-500">{error}</p>}
+</div>
         <div className="dpicker relative flex items-center mb-3">
           <label className="mx-2 text-[#B8BBBF] text-xs whitespace-nowrap">
             {t("O_TO")}

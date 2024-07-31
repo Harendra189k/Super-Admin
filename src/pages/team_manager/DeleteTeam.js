@@ -4,16 +4,21 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { apiDelete } from '../../services/httpServices';
 import { pathObj } from '../../services/apiPath';
+import DeleteToast from '../../DeleteToast';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const DeleteTeam = (props) => {
-
+  const [showToast, setShowToast] = useState(false);
+  
     const deleteTeam = async (data) => {
-        
         try {
           const response = await apiDelete(pathObj.DELETE_TEAM + `/${props.dataView._id}`);
-          if (response.data?.status === 200) {
+          if (response?.data?.status === 200) {
+            toast.success(response?.data?.message)
+            setShowToast(true)
             props.deleteModelView()
-
           } else {
             console.log("Something went wrong");
           }
@@ -38,7 +43,8 @@ const DeleteTeam = (props) => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+         
+      </div>
   )
 }
 

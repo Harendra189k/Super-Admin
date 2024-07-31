@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { apiDelete } from '../../services/httpServices';
 import { pathObj } from '../../services/apiPath';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const DeleteCoach = (props) => {
 
@@ -11,7 +13,8 @@ const DeleteCoach = (props) => {
         
         try {
           const response = await apiDelete(pathObj.DELETE_COACH + `/${props.dataView._id}`);
-          if (response.data?.status === 200) {
+          if (response?.data?.status === 200) {
+            toast.success(response?.data?.message)
             props.deleteModelView()
 
           } else {

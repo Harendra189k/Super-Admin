@@ -5,7 +5,8 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import { apiPut } from "../../services/httpServices";
 import { pathObj } from "../../services/apiPath";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
   
 const UpdatePlayer = (props) => {
 
@@ -22,6 +23,7 @@ const UpdatePlayer = (props) => {
     try {
       const response = await apiPut(pathObj.UPDATE_PLAYER, payloadData);
       if (response.data?.status === 200) {
+        toast.success(response?.data?.message)
         props.handleClose()
         
       } else {
@@ -66,6 +68,7 @@ const UpdatePlayer = (props) => {
 
         <div className="form-group">
               <label>First Name</label>
+              <span className="required-start">*</span>
               <input
                 type="text"
                 className="form-control"
@@ -79,7 +82,7 @@ const UpdatePlayer = (props) => {
                   },
                   pattern: {
                     value: /^[A-Za-z]+$/,
-                    message: "Invalid Name Format!",
+                    message: "Invalid Format!",
                   },
                 })}
               />
@@ -88,6 +91,7 @@ const UpdatePlayer = (props) => {
 
             <div className="form-group ">
               <label>Last Name</label>
+              <span className="required-start">*</span>
               <input
                 type="text"
                 className="form-control"
@@ -110,6 +114,7 @@ const UpdatePlayer = (props) => {
 
             <div className="form-group">
               <label>Email</label>
+              <span className="required-start">*</span>
               <input
                 type="email"
                 className="form-control"
@@ -128,6 +133,7 @@ const UpdatePlayer = (props) => {
 
 <div className="form-group ">
   <label>Category</label>
+  <span className="required-start">*</span>
   <select
     className="form-control"
     defaultValue={props.dataView.category}
@@ -135,7 +141,7 @@ const UpdatePlayer = (props) => {
       required: "category type is required",
     })}
   >
-    <option value="">Select Category</option>
+    <option className="select-place" value="">Select Category</option>
     <option value="batsman">batsman</option>
     <option value="bowler">bowler</option>
     <option value="wicketkeeper">wicketkeeper</option>

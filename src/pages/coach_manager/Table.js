@@ -1,70 +1,70 @@
-
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Sidebar from "../../components/sidebar/Sidebar";
 import ODateRangePicker from "../../components/shared/datePicker/ODateRangePicker";
 import TopNavBar from "../../components/TopNavBar";
 import PageSizeList from "../../components/PageSizeList";
-import {  RiEdit2Fill } from "react-icons/ri";
+import { RiEdit2Fill } from "react-icons/ri";
 import UpdateCoach from "./UpdateCoach";
-import { apiGet, apiPut } from '../../services/httpServices';
+import { apiGet, apiPut } from "../../services/httpServices";
 import { MdDelete } from "react-icons/md";
 import DeleteCoach from "./DeleteCoach";
 import { pathObj } from "../../services/apiPath";
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import CoachPagination from "./CoachPagination";
-import { LuLoader2  } from "react-icons/lu";
+import { LuLoader2 } from "react-icons/lu";
+import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
 
 const Table = () => {
   const { t } = useTranslation();
 
   const [coachList, setCoachList] = useState([]);
-  const [modelShow, setModelShow] = useState(false)
-  const [showDeleteModel, setShowDeleteModel] = useState(false)
-  const [fatchData, setFatchData] = useState(false)
+  const [modelShow, setModelShow] = useState(false);
+  const [showDeleteModel, setShowDeleteModel] = useState(false);
+  const [fatchData, setFatchData] = useState(false);
   const [show, setShow] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
-  const [loader,setLoader]=useState(false)
+  const [loader, setLoader] = useState(false);
+  const [sortOrder, setSortOrder] = useState("asc");
 
   const handleClose = () => setShow(false);
 
-  const modelview =(fatchData) => {
-    setModelShow(!modelShow)
-    setFatchData(fatchData)
-    setLoader(false)
+  const modelview = (fatchData) => {
+    setModelShow(!modelShow);
+    setFatchData(fatchData);
+    setLoader(false);
     // console.log("sgfsdh",fatchData)
-  }
+  };
 
   const deleteModelView = (fatchData) => {
-    setShowDeleteModel(!showDeleteModel)
-    setFatchData(fatchData)
-  }
+    setShowDeleteModel(!showDeleteModel);
+    setFatchData(fatchData);
+  };
 
-  const handleShow =(fatchData) => {
-    setShow(true)
-    setFatchData(fatchData)
-    console.log("Fatch Data !! ====>>",fatchData)
-  }
+  const handleShow = (fatchData) => {
+    setShow(true);
+    setFatchData(fatchData);
+    console.log("Fatch Data !! ====>>", fatchData);
+  };
 
   const coachData = async (data) => {
-    setLoader(true)
+    // setLoader(true)
     try {
       const response = await apiGet(pathObj.COACH);
       // console.log(response, "response===");
-  
+
       if (response.status === 200) {
         setCoachList(response.data);
         setRecords(response.data);
-        setLoader(false)
+        setLoader(false);
       } else {
-        setLoader(false)
-        console.log('Something went wrong');
+        setLoader(false);
+        console.log("Something went wrong");
       }
-  
     } catch (error) {
-      setLoader(false)
+      setLoader(false);
       console.error(error);
     }
   };
@@ -72,16 +72,16 @@ const Table = () => {
     coachData();
   }, [fatchData]);
 
-
   const updateStatus = async (id, status) => {
     const payloadData = {
-      _id:id,
-      status: status};
+      _id: id,
+      status: status,
+    };
     try {
       const response = await apiPut(pathObj.UPDATE_STATUS, payloadData);
       if (response.data?.status === 200) {
-        coachData()
-        handleClose()
+        coachData();
+        handleClose();
       } else {
         console.log("Something went wrong");
       }
@@ -90,42 +90,57 @@ const Table = () => {
     }
   };
 
-  const [records, setRecords] = useState([])
+  const [records, setRecords] = useState([]);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = records.slice(indexOfFirstItem, indexOfLastItem);
 
   const Filter = (searchText) => {
-    if(searchText===""){
-       setRecords(currentItems)
+    if (searchText === "") {
+      setRecords(currentItems);
     }
     setRecords(
-      coachList.filter((coach) =>
-      coach.firstName.toLowerCase().includes(searchText.toLowerCase().trim()) ||
-      coach.lastName.toLowerCase().includes(searchText.toLowerCase().trim()) ||
-      coach.email.toLowerCase().includes(searchText.toLowerCase().trim()) ||
-      coach.phone.toString().includes(searchText) 
+      coachList.filter(
+        (coach) =>
+          coach.firstName
+            .toLowerCase()
+            .includes(searchText.toLowerCase().trim()) ||
+          coach.lastName
+            .toLowerCase()
+            .includes(searchText.toLowerCase().trim()) ||
+          coach.email.toLowerCase().includes(searchText.toLowerCase().trim()) ||
+          coach.phone.toString().includes(searchText.trim())
       )
     );
   };
 
   const FilterByDate = (searchDate) => {
     const searchDateObj = new Date(searchDate);
-  
+
     const searchDateISO = searchDateObj.toISOString();
-  
+
     const filteredList = coachList.filter((coach) => {
       console.log("searchDateISO:", searchDateISO);
       console.log("coach.createdAt:", coach.createdAt);
-  
+
       if (coach.createdAt instanceof Date) {
         const coachCreatedAtISO = coach.createdAt.toISOString();
         return coachCreatedAtISO === searchDateISO;
       }
       return false;
     });
-  
+
     setRecords(filteredList);
+  };
+
+  const handleSortByDate = () => {
+    const sortedList = [...records].sort((a, b) => {
+      const dateA = new Date(a.createdAt);
+      const dateB = new Date(b.createdAt);
+      return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
+    });
+    setRecords(sortedList);
+    setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
 
   return (
@@ -133,10 +148,13 @@ const Table = () => {
       <div className="">
         <Sidebar />
         <TopNavBar />
+        <ODateRangePicker
+          onFilter={Filter}
+          setRecords={setRecords}
+          coachData={coachData}
+        />
         <div className="coach-table overflow-x-auto relative rounded-lg border">
-        <ODateRangePicker onFilter={Filter} setRecords={setRecords} coachData={coachData}   />
-          
-          <table className="w-full text-xs text-left text-[#A5A5A5] dark:text-gray-400"> 
+          <table className="w-full text-xs text-left text-[#A5A5A5] dark:text-gray-400">
             <thead className="text-xs text-gray-900 border border-[#E1E6EE] bg-[#E1E6EE] dark:bg-gray-700 dark:text-gray-400 dark:border-[#ffffff38]">
               <tr>
                 <th scope="col" className="py-3 px-3">
@@ -159,10 +177,15 @@ const Table = () => {
                   <th
                     className="py-3 px-6 cursor-pointer text-right"
                     scope="col"
+                    onClick={handleSortByDate}
                   >
                     <div className="flex justify-start">
                       <span>{t("JOIN_DATE")} </span>
-                      <span></span>
+                      {sortOrder === "asc" ? (
+                        <BsArrowDownShort />
+                      ) : (
+                        <BsArrowUpShort />
+                      )}
                     </div>
                   </th>
                 </>
@@ -175,58 +198,104 @@ const Table = () => {
               </tr>
             </thead>
             <tbody>
-            {loader ? <LuLoader2  className="loader" />
-             :currentItems.map((coach, index) => {
-                let date = new Date(coach["createdAt"])
-                return (
-                  <tr key={index}>
-                  <td className="border py-3 px-3">{indexOfFirstItem + index + 1}</td>
-                  <td className="border py-3 px-3">{coach.firstName}</td>
-                  <td className="border py-3 px-3">{coach.lastName}</td>
-                  <td className="border py-3 px-3">{coach.email}</td>
-                  <td className="border py-3 px-3" style={{ color: 'dark' }}>{coach.phone}</td>
-                  <td className="border py-3 px-3">{date.toLocaleDateString()}</td>
-                  <td className="border py-3 px-3">
-                  <label className="switch">
-  <input type="checkbox" checked={coach.status==="active" ? true : false} onClick={() =>handleShow(coach)}/>
-  <span className="slider round"></span>
-</label>
-                  </td>
-                  
-                  <td className="border py-4 px-3 flex">
-                  <RiEdit2Fill onClick={()=>modelview(coach)} className="edit-icon" />
-                  <MdDelete onClick={() =>deleteModelView(coach)} className="delete-icon"/>
-                  </td>
-                </tr>
-                )
-              })}
+              {loader ? (
+                <LuLoader2 className="loader" />
+              ) : currentItems.length > 0 ? (
+                currentItems?.map((coach, index) => {
+                  let date = new Date(coach["createdAt"]);
+                  return (
+                    <tr key={index}>
+                      <td className="border py-3 px-3">
+                        {indexOfFirstItem + index + 1}
+                      </td>
+                      <td className="border py-3 px-3">{coach.firstName}</td>
+                      <td className="border py-3 px-3">{coach.lastName}</td>
+                      <td className="border py-3 px-3">{coach.email}</td>
+                      <td
+                        className="border py-3 px-3"
+                        style={{ color: "dark" }}
+                      >
+                        {coach.phone}
+                      </td>
+                      <td className="border py-3 px-3">
+                        {date.toLocaleDateString()}
+                      </td>
+                      <td className="border py-3 px-3">
+                        <label className="switch">
+                          <input
+                            type="checkbox"
+                            checked={coach.status === "active" ? true : false}
+                            onClick={() => handleShow(coach)}
+                          />
+                          <span className="slider round"></span>
+                        </label>
+                      </td>
+
+                      <td className="border py-4 px-3 flex">
+                        <RiEdit2Fill
+                          onClick={() => modelview(coach)}
+                          className="edit-icon"
+                        />
+                        <MdDelete
+                          onClick={() => deleteModelView(coach)}
+                          className="delete-icon"
+                        />
+                      </td>
+                    </tr>
+                  );
+                })
+              ):<tr className="py-3 px-3 w-full text-center flex no-data-found">
+              <td>
+              No data Found
+                </td></tr>}
             </tbody>
           </table>
-          
         </div>
-        <CoachPagination totalItems={coachList.length}
-            itemsPerPage={itemsPerPage}
-            currentPage={currentPage}
-            onPageChange={(pageNumber) => setCurrentPage(pageNumber)}
-            onItemsPerPageChange={(pageSize) => setItemsPerPage(pageSize)} />
+        <CoachPagination
+          totalItems={coachList.length}
+          itemsPerPage={itemsPerPage}
+          currentPage={currentPage}
+          onPageChange={(pageNumber) => setCurrentPage(pageNumber)}
+          onItemsPerPageChange={(pageSize) => setItemsPerPage(pageSize)}
+        />
       </div>
 
       <Modal show={show} onHide={handleClose} className="status-model">
         <Modal.Header closeButton>
-        <Modal.Title>Update Status</Modal.Title>
+          <Modal.Title>Update Status</Modal.Title>
         </Modal.Header>
         <Modal.Body>Are You Sure to Update Status?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={() =>updateStatus(fatchData._id,fatchData.status==="active" ? "deactive" : "active")}>
+          <Button
+            variant="primary"
+            onClick={() =>
+              updateStatus(
+                fatchData._id,
+                fatchData.status === "active" ? "deactive" : "active"
+              )
+            }
+          >
             Update Status
           </Button>
         </Modal.Footer>
       </Modal>
-      {modelShow && <UpdateCoach show={modelShow} handleClose={modelview} dataView={fatchData} />}
-      {showDeleteModel && <DeleteCoach showdel={showDeleteModel} deleteModelView={deleteModelView} dataView={fatchData}/>}
+      {modelShow && (
+        <UpdateCoach
+          show={modelShow}
+          handleClose={modelview}
+          dataView={fatchData}
+        />
+      )}
+      {showDeleteModel && (
+        <DeleteCoach
+          showdel={showDeleteModel}
+          deleteModelView={deleteModelView}
+          dataView={fatchData}
+        />
+      )}
     </>
   );
 };

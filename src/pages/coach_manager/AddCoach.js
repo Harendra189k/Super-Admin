@@ -19,7 +19,10 @@ const AddCoach = ({coachData}) => {
     reset
   } = useForm();
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const handleClose = () =>{
+    reset()
+    setShow(false);
+  }
   const handleShow = () => setShow(true);
 
   const [passwordShown, setPasswordShown] = useState(false);
@@ -79,6 +82,15 @@ const AddCoach = ({coachData}) => {
     addCoach(data);
   };
 
+  const preventMaxInput = (e, limit) => {
+    e.target.value = e.target.value.trimStart();
+    e.target.value = e.target.value.replace(/  +/g, " ");
+    if (e.target.value.length > limit) {
+      e.target.value = e.target.value.slice(0, limit);
+    }
+  };
+
+
   return (
     <div>
       <button
@@ -96,10 +108,11 @@ const AddCoach = ({coachData}) => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-group">
               <label>First Name</label>
+              <span className="required-start">*</span>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Enter first name"
+                // placeholder="Enter first name"
                 {...register("firstName", {
                   required: "First Name is required",
                   minLength: {
@@ -108,7 +121,7 @@ const AddCoach = ({coachData}) => {
                   },
                   pattern: {
                     value: /^[A-Za-z]+$/,
-                    message: "Invalid Name Format!",
+                    message: "Invalid first name format!",
                   },
                 })}
               />
@@ -117,15 +130,16 @@ const AddCoach = ({coachData}) => {
 
             <div className="form-group">
               <label>Last Name</label>
+              <span className="required-start">*</span>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Enter last name"
+                // placeholder="Enter last name"
                 {...register("lastName", {
                   required: "Last Name is required",
                   pattern: {
                     value: /^[A-Za-z]+$/,
-                    message: "Invalid Last Name Format!",
+                    message: "Invalid last name format!",
                   },
                   minLength: {
                     value: 2,
@@ -137,28 +151,36 @@ const AddCoach = ({coachData}) => {
             </div>
 
             <div className="form-group">
-              <label>Email</label>
-              <input
-                type="email"
-                className="form-control"
-                placeholder="Enter email"
-                {...register("email", {
-                  required: "Email is required",
-                  pattern: {
-                    value: /\S+@\S+\.\S+/,
-                    message: "Invalid Email",
-                  },
-                })}
-              />
-              <p className="error-msg">{errors.email?.message}</p>
-            </div>
+  <label>Email</label>
+  <span className="required-start">*</span>
+  <input
+    type="email"
+    className="form-control"
+    {...register("email", {
+      required: "Email is required",
+      minLength: {
+        value: 3,
+        message: "Email must be at least 3 characters long",
+      },
+      pattern: {
+        value: /^(?![0-9])[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
+        message: "Invalid Email",
+      },
+    })}
+  />
+  <p className="error-msg">{errors.email?.message}</p>
+</div>
 
             <div className="form-group">
               <label>Phone Number</label>
+              <span className="required-start">*</span>
               <input
                 type="number"
                 className="form-control"
-                placeholder="Enter phone number"
+                min={0}
+                maxLength={10}
+                onInput={(e) => preventMaxInput(e, 10)}
+                // placeholder="Enter phone number"
                 {...register("phone", {
                   required: "Phone Number is required",
                   minLength: {
@@ -176,11 +198,12 @@ const AddCoach = ({coachData}) => {
 
             <div className="form-group">
               <label>Password</label>
+              <span className="required-start">*</span>
               <div className="password-input">
                 <input
                   type={passwordShown ? "text" : "password"}
                   className="form-control"
-                  placeholder="Enter password"
+                  // placeholder="Enter password"
                   {...register("password", {
                     required: "Password is required",
                     minLength: {
@@ -197,18 +220,19 @@ const AddCoach = ({coachData}) => {
                   className="password-toggle-icon"
                   onClick={togglePasswordVisibility}
                 >
-                  {passwordShown ? <AiFillEyeInvisible /> : <AiFillEye />}
+                  {passwordShown ? <AiFillEye /> : <AiFillEyeInvisible />}
                 </span>
               </div>
             </div>
 
             <div className="form-group">
               <label>Confirm Password</label>
+              <span className="required-start">*</span>
               <div className="password-input">
                 <input
                   type={confirmPasswordShown ? "text" : "password"}
                   className="form-control"
-                  placeholder="Confirm password"
+                  // placeholder="Confirm password"
                   {...register("confirmPassword", {
                     required: "Confirm Password is required",
                     minLength: {
@@ -225,7 +249,7 @@ const AddCoach = ({coachData}) => {
                   className="password-toggle-icon"
                   onClick={toggleConfirmPasswordVisibility}
                 >
-                  {confirmPasswordShown ? <AiFillEyeInvisible /> : <AiFillEye />}
+                  {confirmPasswordShown ? <AiFillEye /> : <AiFillEyeInvisible />}
                 </span>
               </div>
             </div>
