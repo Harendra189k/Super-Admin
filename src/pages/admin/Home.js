@@ -15,7 +15,6 @@ import { pathObj } from '../../services/apiPath';
 import { LuLoader2 } from 'react-icons/lu';
 import { NavLink } from 'react-router-dom';
 
-
 const Home = () => {
 
     const { t } = useTranslation();
@@ -26,7 +25,6 @@ const Home = () => {
       setLoader(GiTrumpetFlag)
       try {
         const response = await apiGet(pathObj.GET_COUNT);
-    
         if (response.status === 200) {
           setDashboardDetails(response.data);
           setLoader(false)
@@ -34,7 +32,6 @@ const Home = () => {
           console.log('Something went wrong');
           setLoader(false)
         }
-    
       } catch (error) {
         console.error(error);
         setLoader(false)
@@ -71,7 +68,6 @@ const Home = () => {
           </h3>
           <span className="text-4xl ml-auto sm:mr-0  mt-2 sm:mt-0 absolute right-[-10px] top-[-30px] p-3 border z-10 bg-white">
           <FaRunning />
-
           </span>
         </div>
         </NavLink>
@@ -83,7 +79,6 @@ const Home = () => {
           </h3>
           <span className="text-4xl ml-auto sm:mr-0  mt-2 sm:mt-0 absolute right-[-10px] top-[-30px] p-3 border z-10 bg-white">
             <MdOutlineSportsSoccer />
-
           </span>
         </div>
 

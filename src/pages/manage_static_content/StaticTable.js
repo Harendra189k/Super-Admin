@@ -7,8 +7,6 @@ import { apiGet, apiPut } from "../../services/httpServices";
 import { pathObj } from "../../services/apiPath";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import DatePickerTeam from "../team_manager/DatePickerTeam";
-import UpdateTeam from "../team_manager/UpdateTeam";
 import UpdateStatic from "./UpdateStatic";
 import DatePickerStatic from "./DatePickerStatic";
 import { LuLoader2 } from "react-icons/lu";
@@ -184,6 +182,7 @@ const StaticTable = () => {
                   <Modal show={showMore} onHide={handleCloseMore}>
         <Modal.Header 
         closeButton>
+          <Modal.Title>Description</Modal.Title>
         </Modal.Header>
         <Modal.Body>{privacyPolicy.description}</Modal.Body>
         <Modal.Footer>

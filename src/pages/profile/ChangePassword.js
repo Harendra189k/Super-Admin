@@ -69,11 +69,11 @@ const ChangePassword = () => {
     <>
       <Sidebar />
       <TopNavBar />
-      <div className="container">
+      <div className="container change-passw">
       <Card className="bg-light text-white change-password-card">
-        <h1>Change Password</h1>
         <div className="change-password-admin row mt-20">
           <div className="col-md-9 personal-info">
+        {/* <h1>Change Password</h1>   */}
             <form className="form-horizontal mt-4" role="form" onSubmit={handleSubmit(changeAdminPassword)}>
               {/* <div className="form-group-pass">
                 <div className="col-lg-8">

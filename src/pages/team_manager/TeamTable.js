@@ -151,7 +151,7 @@ const TeamTable = () => {
         />
         <div className="coach-table overflow-x-auto relative rounded-lg border">
           <table className="w-full text-xs text-left text-[#A5A5A5] dark:text-gray-400">
-            <thead className="text-xs text-gray-900 border border-[#E1E6EE] bg-[#E1E6E] dark:bg-gray-700 dark:text-gray-400 dark:border-[#ffffff38]">
+            <thead className="text-xs text-gray-900 border border-[#E1E6EE] bg-[#E1E6EE] dark:bg-gray-700 dark:text-gray-400 dark:border-[#ffffff38]">
               <tr>
                 <th scope="col" className="py-3 px-3">
                   {t("S.NO")}
